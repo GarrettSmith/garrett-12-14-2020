@@ -1,5 +1,7 @@
 # Garrett - 12/14/2020
 
+[Live Site](https://garrettsmith.github.io/garrett-12-14-2020/)
+
 ## Installation
 
 In the project directory, you can run:
