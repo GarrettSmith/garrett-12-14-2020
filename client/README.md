@@ -103,6 +103,11 @@ This should be revised to allow isolating data and to further prevent CSRF conce
 
 ### Share typings between client and server
 
+### Continuous deployment
+
+- Only deploy client when client code changes are made. Currently, any change to master will trigger a new deployment
+- Deploy Firebase Function on changes to server code. Currently, the function needs to be manually published
+
 ## Libraries
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
