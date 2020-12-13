@@ -20,8 +20,7 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the application server and Cypress in [headless mode](https://docs.cypress.io/guides/guides/command-line.html#cypress-run).
 
 ### `yarn build`
 
@@ -32,6 +31,8 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+The output of this command is published to GitHub Pages via a GitHub action.
 
 ## Security
 
@@ -77,6 +78,11 @@ Currently, the application has only been tested with Google Chrome 87.0.4280.88 
 ### Improve rendering performance
 
 The list of documents does not perform any pagination or windowing. This will lead to performance issues as the data grows in size.
+
+### Single Environment
+
+This application only exists in a single environment used for development, E2E tests, and production. 
+This should be revised to allow isolating data and to further prevent CSRF concerns by restricting request origins.
 
 ## Libraries
 
@@ -186,6 +192,9 @@ This endpoint does not respond with body on successful deletions.
 ### POST `/v0/b/{bucket-name}/o?name=documents%2F{filename}`
 
 Uploades a new file with the given filename.
+
+This endpoint has been configured to only allow files with the `Content-Type` `image/jpeg` and `image/png` up to a maximum filesize of 10MB.
+
 
 #### Example URL
 

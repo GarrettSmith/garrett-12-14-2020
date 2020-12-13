@@ -3,17 +3,11 @@ describe("Search documents", () => {
   const filePath2 = "test.png";
 
   before(() => {
-    cy.intercept({
-      method: "POST",
-      url:
-        "https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o",
-    }).as("uploadDocument");
-
+    const timeout = 10000;
     cy.get("#Upload-Input").attachFile(filePath1);
-    cy.wait("@uploadDocument");
-
+    cy.get("#Upload-Success", { timeout });
     cy.get("#Upload-Input").attachFile(filePath2);
-    cy.wait("@uploadDocument");
+    cy.get("#Upload-Success", { timeout });
   });
 
   beforeEach(() => {
@@ -24,6 +18,7 @@ describe("Search documents", () => {
       url:
         "https://us-central1-garrett-12-14-2020.cloudfunctions.net/searchDocuments",
     }).as("searchDocuments");
+    cy.wait("@searchDocuments")
   });
 
   it("Displays a search input", () => {
