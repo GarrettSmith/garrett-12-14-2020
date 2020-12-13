@@ -2,10 +2,10 @@
 
 A React based single page application and API which allows users to upload and manage files.
 
-## [Frontend Client](./client)
+## [Frontend client](./client)
 
 The intended submission for the project.
 
-## [Backend Server](./server)
+## [Backend server](./server)
 
 Enables the frontend client's search functionality.

@@ -5,7 +5,7 @@ A simple [Firebase Cloud Function](https://firebase.google.com/docs/functions) t
 > **PLEASE NOTE:** This is intended to be a mock to enable the client application. It is functional, but should not be considered
 > production-ready.
 
-## Ensure you have the `firebase-tools` installed.
+## Ensure you have the `firebase-tools` installed
 
 ```
 npm i -g firebase-tools

@@ -57,7 +57,7 @@ prevent the availability of the server to users.
 [Implement individual requester rate limiting](https://stackoverflow.com/questions/24830079/firebase-rate-limiting-in-security-rules) could help prevent this
 but is considered out of scope for a frontend specific project.
 
-### Private Data Leakage
+### Private data leakage
 
 The application is unauthenticated, and thus, all data is publicly available.
 
@@ -80,17 +80,17 @@ No private credentials are used by the frontend client, preventing access leakag
 - Error boundaries should be added to limit the potential scope and uncaught error could cause issues in.
 - An error logging tool, E.G. Sentry, should be added to further track runtime errors.
 
-### Improve Firebase security configuration
+### Firebase security configuration
 
 ### Test browser support
 
 Currently, the application has only been tested with Google Chrome 87.0.4280.88 Further browsers should be tested and support added if required.
 
-### Improve rendering performance
+### Measure and improve rendering performance
 
 The list of documents does not perform any pagination or windowing. This will lead to performance issues as the data grows in size.
 
-### Single Environment
+### Single environment
 
 This application only exists in a single environment used for development, E2E tests, and production.
 This should be revised to allow isolating data and to further prevent CSRF concerns by restricting request origins.
@@ -169,7 +169,7 @@ Returns a filtered list of documents prefixed with the requested string.
 https://us-central1-garrett-12-14-2020.cloudfunctions.net/searchDocuments
 ```
 
-#### Example Request Body
+#### Example request body
 
 ```json
 {
@@ -177,7 +177,7 @@ https://us-central1-garrett-12-14-2020.cloudfunctions.net/searchDocuments
 }
 ```
 
-### Example Response Body
+### Example response body
 
 ```json
 {
@@ -204,7 +204,7 @@ Deletes the provided file.
 https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o/documents%2Fexample.jpg
 ```
 
-### Example Response Body
+### Example response body
 
 This endpoint does not respond with body on successful deletions.
 
@@ -220,7 +220,7 @@ This endpoint has been configured to only allow files with the `Content-Type` `i
 https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o?name=documents%2Fexample.jpg
 ```
 
-### Example Response Body
+### Example response body
 
 Firebase uses this with appended query strings to poll for upload progress. The final polling response returns the documented response body.
 
@@ -243,3 +243,9 @@ Firebase uses this with appended query strings to poll for upload progress. The 
   "downloadTokens": "122a0738-e71f-46f8-a21c-e3a4553c4f64"
 }
 ```
+
+## Other notes
+
+### GitHub issues
+
+[GitHub issues](https://github.com/GarrettSmith/garrett-12-14-2020/issues) were used to organize requirements and assumption. Please refer to them for more information on the planning process.
