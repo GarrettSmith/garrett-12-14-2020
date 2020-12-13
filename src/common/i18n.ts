@@ -12,7 +12,8 @@ const resources: Resource = {
       "total size": "Total size: {{totalSize, filesize}}",
       "upload": "UPLOAD",
       "upload error": "Failed to upload file!",
-      "upload success": "Successfully uploaded '{{ filename }}'!"
+      "upload success": "Successfully uploaded '{{ filename }}'!",
+      "delete": "Delete"
     },
   },
 };

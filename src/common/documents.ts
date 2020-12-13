@@ -69,7 +69,7 @@ export const useUploadDocument = () => {
   const [errors, setErrors] = useState<Array<Error> | undefined>();
   const [loading, setLoading] = useState(false);
 
-  async function upload(file: File) {
+  function uploadDocument(file: File) {
     setLoading(true);
     setErrors(undefined);    
     setLastUploaded(undefined);
@@ -81,8 +81,8 @@ export const useUploadDocument = () => {
       return;
     }
 
-    const fileRef = documentsRef.child(file.name);
-    const uploadTask = fileRef.put(file);
+    const docRef = documentsRef.child(file.name);
+    const uploadTask = docRef.put(file);
 
     const next = (snapshot: firebase.storage.UploadTaskSnapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -120,9 +120,39 @@ export const useUploadDocument = () => {
   return {
     loading,
     errors,
-    upload,
+    uploadDocument,
     lastUploaded,
     clearErrors,
     clearLastUploaded,
   };
 };
+
+export const useDeleteDocument = (name: string) => {
+  const [error, setError] = useState<Error | undefined>();
+  const [loading, setLoading] = useState(false);
+
+  async function deleteDocument() {
+    setLoading(true);
+
+    const docRef = documentsRef.child(name);
+
+    try {
+      await docRef.delete();
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function clearError() {
+    setError(undefined);
+  }
+
+  return {
+    error,
+    loading,
+    deleteDocument,
+    clearError,
+  }
+}

@@ -23,7 +23,7 @@ export const UploadButton: React.FC = () => {
   const {
     loading,
     errors,
-    upload,
+    uploadDocument,
     clearErrors,
     lastUploaded,
     clearLastUploaded,
@@ -34,7 +34,7 @@ export const UploadButton: React.FC = () => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      upload(file);
+      uploadDocument(file);
     }
   };
 
