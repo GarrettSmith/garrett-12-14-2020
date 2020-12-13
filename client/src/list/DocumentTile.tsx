@@ -11,7 +11,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { Document, useDeleteDocument } from "../common/documents";
+import { useDeleteDocument } from "../common/documents";
+import { Document } from "../common/models";
 import { errorDisplayDuration } from "../common/constants";
 
 const useStyles = makeStyles((theme) => ({

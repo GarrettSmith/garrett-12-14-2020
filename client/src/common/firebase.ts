@@ -1,8 +1,11 @@
 import firebase from "firebase/app";
 import "firebase/storage";
 import "firebase/functions";
+import { FunctionDocument } from "./models";
 
 // Set the configuration for your app
+// TODO move to a configuration file
+// TODO load different configuration based on environment
 const firebaseConfig = {
   apiKey: "AIzaSyA9eLEXFPMNIttFTlcZt6vImPOAaE9yPaA",
   authDomain: "garrett-12-14-2020.firebaseapp.com",
@@ -17,9 +20,26 @@ const app = firebase.initializeApp(firebaseConfig);
 const storage = app.storage();
 
 const storageRef = storage.ref();
-export const documentsRef = storageRef.child("documents");
+const documentsRef = storageRef.child("documents");
 
 // Get a reference to the functions service, which is use to call your cloud functions
 const functions = app.functions();
 
-export const searchDocuments = functions.httpsCallable("searchDocuments");
+const searchFunction = functions.httpsCallable("searchDocuments")
+export const searchDocuments = async (search: string) => {
+  const { data: documents } = await searchFunction(search);
+  // TODO validate response structure
+  return documents as Array<FunctionDocument>;
+};
+
+export const deleteDocument = (name: string) =>
+  documentsRef.child(name).delete() as Promise<void>;
+
+export const uploadDocument = (file: File) =>
+  new Promise<void>((resolve, reject) => {
+    const uploadTask = documentsRef.child(file.name).put(file);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
+      error: reject,
+      complete: resolve,
+    });
+  });

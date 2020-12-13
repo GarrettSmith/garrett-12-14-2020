@@ -1,7 +1,6 @@
 import i18n, { Resource } from "i18next";
 import { initReactI18next } from "react-i18next";
-import numeral from "numeral";
-import { filesizeFormat } from "./constants";
+import { formatFilesize } from "./format";
 
 const resources: Resource = {
   en: {
@@ -30,10 +29,10 @@ i18n
     interpolation: {
       escapeValue: false, // react already safes from xss
 
-      format: function (value, format, lang) {
+      format: (value, format, lang) => {
         switch (format) {
           case "filesize":
-            return numeral(value).format(filesizeFormat);
+            return formatFilesize(value);
           default:
             return value;
         }

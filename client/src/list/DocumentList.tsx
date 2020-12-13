@@ -7,7 +7,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { useDocuments, Document } from "../common/documents";
+import { useDocuments } from "../common/documents";
+import { Document } from "../common/models";
 import { DocumentTile } from "./DocumentTile";
 
 const useStyles = makeStyles((theme) => ({

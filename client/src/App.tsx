@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function App() {
+export const App: React.FC = () => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
 
@@ -40,6 +40,4 @@ function App() {
       <DocumentList search={search} />
     </Container>
   );
-}
-
-export default App;
+};

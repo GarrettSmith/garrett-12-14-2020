@@ -97,6 +97,12 @@ This should be revised to allow isolating data and to further prevent CSRF conce
 
 ### Cypress tests run on development builds
 
+### Display upload progress
+
+### Rate limit users
+
+### Share typings between client and server
+
 ## Libraries
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
