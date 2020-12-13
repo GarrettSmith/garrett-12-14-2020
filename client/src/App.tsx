@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { Container, Grid, makeStyles } from "@material-ui/core";
 
 import { DocumentList } from "./list";

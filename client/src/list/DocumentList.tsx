@@ -106,7 +106,7 @@ export const DocumentList: React.FC<Props> = ({ search }) => {
 
   if (error) {
     return <Error error={error} />;
-  } else if (loading && !documents) {
+  } else if (loading && !documents) { // Initial load
     return <Loading />;
   } else {
     return <Ready documents={documents ?? []} loading={loading} />;

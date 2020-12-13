@@ -4,7 +4,7 @@ describe("Search documents", () => {
 
   before(() => {
     const timeout = 10000;
-    
+
     cy.visit("/");
     cy.get("#Upload-Input").attachFile(filePath1);
     cy.get("#Upload-Success", { timeout });
@@ -20,7 +20,7 @@ describe("Search documents", () => {
       url:
         "https://us-central1-garrett-12-14-2020.cloudfunctions.net/searchDocuments",
     }).as("searchDocuments");
-    cy.wait("@searchDocuments")
+    cy.wait("@searchDocuments");
   });
 
   it("Displays a search input", () => {

@@ -15,7 +15,6 @@ export const useDocuments = (search: string) => {
     setError(undefined);
     try {
       const documents = await service.searchDocuments(search);
-
       setDocuments(documents);
     } catch (error) {
       setError(error);
@@ -23,6 +22,7 @@ export const useDocuments = (search: string) => {
       setLoading(false);
     }
   };
+
   const debouncedGetDocuments = useDebouncedCallback(
     getDocuments,
     searchDebounce
@@ -41,12 +41,15 @@ export const useDocuments = (search: string) => {
 
 const validateFile = (file: File) => {
   const errors = [];
+
   if (!validFileTypes.includes(file.type)) {
     errors.push(new Error(`Invalid File Type: '${file.type}'`));
   }
+
   if (file.size > maxFileSize) {
     errors.push(new Error(`File size too large: ${formatFilesize(file.size)}`));
   }
+
   return errors.length > 0 ? errors : null;
 };
 
@@ -59,7 +62,6 @@ export const useUploadDocument = () => {
     setLoading(true);
     setErrors(undefined);
     setLastUploaded(undefined);
-
     try {
       const validationErrors = validateFile(file);
       if (validationErrors) throw validationErrors;
@@ -91,7 +93,6 @@ export const useDeleteDocument = (name: string) => {
 
   const deleteDocument = async () => {
     setLoading(true);
-
     try {
       await service.deleteDocument(name);
     } catch (error) {

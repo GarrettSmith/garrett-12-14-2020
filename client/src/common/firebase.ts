@@ -25,7 +25,8 @@ const documentsRef = storageRef.child("documents");
 // Get a reference to the functions service, which is use to call your cloud functions
 const functions = app.functions();
 
-const searchFunction = functions.httpsCallable("searchDocuments")
+const searchFunction = functions.httpsCallable("searchDocuments");
+
 export const searchDocuments = async (search: string) => {
   const { data: documents } = await searchFunction(search);
   // TODO validate response structure
