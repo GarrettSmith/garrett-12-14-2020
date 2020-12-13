@@ -7,19 +7,19 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-
 import { useDocuments, Document } from "../common/documents";
 import { DocumentTile } from "./DocumentTile";
 
 const useStyles = makeStyles((theme) => ({
   loading: {
-    minHeight: "100%",
+    flexGrow: 1,
   },
   totalSize: {
     display: "flex",
     alignItems: "flex-end",
   },
   header: {
+    paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
 }));
@@ -53,9 +53,10 @@ const Loading: React.FC = () => {
 
 interface ReadyProps {
   documents: Array<Document>;
+  loading: boolean;
 }
 
-const Ready: React.FC<ReadyProps> = ({ documents }) => {
+const Ready: React.FC<ReadyProps> = ({ documents, loading }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -79,6 +80,7 @@ const Ready: React.FC<ReadyProps> = ({ documents }) => {
             {t("document", { count: totalCount })}
           </Typography>
         </Grid>
+        <Grid item>{loading ? <CircularProgress /> : null}</Grid>
         <Grid item className={classes.totalSize}>
           <Typography id="Document-List-Header-Size" variant="h5">
             {t("total size", { totalSize })}
@@ -103,9 +105,9 @@ export const DocumentList: React.FC<Props> = ({ search }) => {
 
   if (error) {
     return <Error error={error} />;
-  } else if (loading) {
+  } else if (loading && !documents) {
     return <Loading />;
   } else {
-    return <Ready documents={documents ?? []} />;
+    return <Ready documents={documents ?? []} loading={loading} />;
   }
 };

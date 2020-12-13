@@ -70,13 +70,13 @@ The application is unauthenticated, and thus, all data is publicly available.
 
 ### Improve Firebase security configuration
 
-### Reduce requests for document information
-
-To get the size of a document, we are required to make a separate request to Firebase. This means that to get the total file size, we need to make a request per document.
-
 ### Test browser support
 
 Currently, the application has only been tested with Google Chrome 87.0.4280.88 Further browsers should be tested and support added if required.
+
+### Improve rendering performance
+
+The list of documents does not perform any pagination or windowing. This will lead to performance issues as the data grows in size.
 
 ## Libraries
 
@@ -102,10 +102,6 @@ Client library for Firebase. The backend application service.
 
 A tool to publish the site to GitHub Pages.
 
-### [`husky`](https://www.npmjs.com/package/husky)
-
-Command to register hooks with git. Used to run `prettier`
-
 ### [`i18next` and `react-i18next`](https://www.npmjs.com/package/i18next)
 
 Internatioinalization (i18n) framework.
@@ -126,17 +122,103 @@ A tool used to run Cypress and an application in parallel for E2E testing.
 
 A superset of JavaScript that provides strong typing. Reduces runtime errors and development time.
 
+### [`use-debounce`](https://github.com/xnimorz/use-debounce)
+
+A small hook to debounce the searching of documents.
+
 ## API
-// Any general observation about the API?
-// document each endpoint using the following template:
+
+All API requests are made through the Firebase client.
+
+> The Firebase clients manages the variable domains and prefix path of the following requests. These have been documented below in their current state but may vary.
+
+### POST `/searchDocuments`
+
+Returns a filtered list of documents prefixed with the requested string.
+
+> **PLEASE NOTE:** This search is intentially simple to narrow the scope of the project.
+
+#### Example URL
+
 ```
-### GET /resources
-// Description of the endpoint:
-// - what does the endpoint do?
-// - what does it return?
-// - does it accept specific parameters?
+https://us-central1-garrett-12-14-2020.cloudfunctions.net/searchDocuments
+```
+
+#### Example Request Body
+
+```json
+{
+  "data": "example"
+}
+```
+
+### Example Response Body
+
+```json
+{
+  "result": [
+    {
+      "name": "example.jpg",
+      "size": 83261
+    },
+    {
+      "name": "example-image.png",
+      "size": 1234
+    }
+  ]
+}
+```
+
+### DELETE `/v0/b/{bucket-name}/o/documents%2F{filename}`
+
+Deletes the provided file.
+
+#### Example URL
+
+```
+https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o/documents%2Fexample.jpg
+```
+
+### Example Response Body
+
+This endpoint does not respond with body on successful deletions.
+
+### POST `/v0/b/{bucket-name}/o?name=documents%2F{filename}`
+
+Uploades a new file with the given filename.
+
+#### Example URL
+
+```
+https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o?name=documents%2Fexample.jpg
+```
+
+### Example Response Body
+
+Firebase uses this with appended query strings to poll for upload progress. The final polling response returns the documented response body.
+
+```json
+{
+  "name": "documents/example.jpg",
+  "bucket": "garrett-12-14-2020.appspot.com",
+  "generation": "1607878624162589",
+  "metageneration": "1",
+  "contentType": "image/jpeg",
+  "timeCreated": "2020-12-13T16:57:04.162Z",
+  "updated": "2020-12-13T16:57:04.162Z",
+  "storageClass": "STANDARD",
+  "size": "350577",
+  "md5Hash": "7Qhs8vZf2l16Ga6bCcGquw==",
+  "contentEncoding": "identity",
+  "contentDisposition": "inline; filename*=utf-8''joy.jpg",
+  "crc32c": "9b7Wlg==",
+  "etag": "CJ3m8NG2y+0CEAE=",
+  "downloadTokens": "122a0738-e71f-46f8-a21c-e3a4553c4f64"
+}
 ```
 
 ---
+
 ## Other notes
+
 // Anything else you want to mention

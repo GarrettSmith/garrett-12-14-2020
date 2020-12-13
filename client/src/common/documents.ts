@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { documentsRef, searchDocuments } from "./firebase";
 import firebase from "firebase/app";
-import { filesizeFormat, validFileTypes, maxFileSize } from "./constants";
+import {
+  filesizeFormat,
+  validFileTypes,
+  maxFileSize,
+  searchDebounce,
+} from "./constants";
 import numeral from "numeral";
+import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
 export interface Document {
   name: string;
@@ -15,21 +21,26 @@ export const useDocuments = (search: string) => {
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function getDocuments() {
-      setLoading(true);
-      setError(undefined);
-      try {
-        const { data: documents } = await searchDocuments(search);
-        setDocuments(documents);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
+  const getDocuments = async (search: string) => {
+    setLoading(true);
+    setError(undefined);
+    try {
+      const { data: documents } = await searchDocuments(search);
+      setDocuments(documents);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
     }
-    getDocuments();
-  }, [search]);
+  };
+  const debouncedGetDocuments = useDebouncedCallback(
+    getDocuments,
+    searchDebounce
+  );
+
+  useEffect(() => {
+    debouncedGetDocuments.callback(search);
+  }, [search, debouncedGetDocuments]);
 
   return {
     loading,
@@ -38,7 +49,7 @@ export const useDocuments = (search: string) => {
   };
 };
 
-function validateFile(file: File) {
+const validateFile = (file: File) => {
   const errors = [];
   if (!validFileTypes.includes(file.type)) {
     errors.push(new Error(`Invalid File Type: '${file.type}'`));
@@ -51,7 +62,7 @@ function validateFile(file: File) {
     );
   }
   return errors;
-}
+};
 
 export const useUploadDocument = () => {
   const [lastUploaded, setLastUploaded] = useState<string | undefined>();

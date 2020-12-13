@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
   app: {
     padding: theme.spacing(2),
     height: "100vh",
+    display: "flex",
+    flexDirection: "column",
   },
   actions: {
     marginBottom: theme.spacing(1),

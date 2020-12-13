@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress, InputBase, makeStyles } from "@material-ui/core";
+import { InputBase, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({

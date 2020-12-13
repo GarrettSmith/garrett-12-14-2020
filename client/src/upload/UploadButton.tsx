@@ -12,7 +12,7 @@ import { errorDisplayDuration, validFileTypes } from "../common/constants";
 const useStyles = makeStyles((theme) => ({
   button: {
     display: "flex",
-    "text-align": "center",
+    textAlign: "center",
   },
   input: {
     display: "none",
