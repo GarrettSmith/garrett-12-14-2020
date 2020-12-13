@@ -17,7 +17,18 @@ import { errorDisplayDuration } from "../common/constants";
 const useStyles = makeStyles((theme) => ({
   card: {
     height: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "column",
   },
+  actions: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  filesize: {
+    alignItems: "flex-end",
+  }
 }));
 
 export interface Props {
@@ -43,30 +54,24 @@ export const DocumentTile: React.FC<Props> = ({ document }) => {
         onClose={clearError}
       />
       <Grid className="Document-Tile" item xs={12} md={4}>
-        <Card className={classes.card}>
+        <Card className={classes.card} variant="outlined">
           <CardHeader title={document.name} />
-          <CardActions>
-            <Grid container justify="space-between">
-              <Grid item>
-                <Typography>
-                  {t("filesize", { filesize: document.size })}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Button
-                  className="Delete-Button"
-                  size="small"
-                  color="primary"
-                  startIcon={loading ? <CircularProgress size={14} /> : null}
-                  disabled={loading}
-                  onClick={deleteDocument}
-                  variant="contained"
-                >
-                  {t("delete")}
-                </Button>
-              </Grid>
-            </Grid>
-          </CardActions>
+          <CardActions className={classes.actions}>
+            <Typography className={classes.filesize}>
+              {t("filesize", { filesize: document.size })}
+            </Typography>
+            <Button
+              className="Delete-Button"
+              size="small"
+              color="primary"
+              startIcon={loading ? <CircularProgress size={14} /> : null}
+              disabled={loading}
+              onClick={deleteDocument}
+              variant="contained"
+            >
+              {t("delete")}
+            </Button>
+      </CardActions>
         </Card>
       </Grid>
     </>

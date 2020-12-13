@@ -74,6 +74,7 @@ export const UploadButton: React.FC = () => {
           component="div"
           disabled={loading}
           startIcon={loading ? <CircularProgress size={14} /> : null}
+          color="primary"
         >
           {t("Upload")}
         </Button>
