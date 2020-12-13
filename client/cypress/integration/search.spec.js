@@ -4,6 +4,8 @@ describe("Search documents", () => {
 
   before(() => {
     const timeout = 10000;
+    
+    cy.visit("/");
     cy.get("#Upload-Input").attachFile(filePath1);
     cy.get("#Upload-Success", { timeout });
     cy.get("#Upload-Input").attachFile(filePath2);
