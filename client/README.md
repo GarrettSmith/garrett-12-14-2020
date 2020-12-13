@@ -30,27 +30,38 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `yarn deploy`
 
-The output of this command is published to GitHub Pages via a GitHub action.
+Deploys the build output to GitHub pages.
+
+See the section about [deployment](https://create-react-app.dev/docs/deployment/#github-pages) for more information.
 
 ## Security
 
-### Addressed
+### XSS
 
-#### XSS
+React is highly resistant to XSS and escapes strings by default. [Reference](https://dev.to/spukas/preventing-xss-in-react-applications-5f5j)
 
-React is highly resistant to XSS and escapes strings by default.
+### CSRF
 
-#### XSRF
+No endpoints used by the project support the `GET` method. This is not sufficient to fully prevent CSRF but does reduce possible attack vetors.
 
-#### DOS
+Further enhancements to limit the request origin would further limit this, but are also not sufficient to fully prevent it.
+Adding proper session handling or synchronized tokens would be the ideal solution to prevent this attack.
 
-### Not Addressed
+### DOS
 
-#### Private Data Leakage
+[Firebase has rate limits for cloud functions](https://firebase.google.com/docs/functions/quotas). Once these are reached, an attacker could
+prevent the availability of the server to users.
+
+[Implement individual requester rate limiting](https://stackoverflow.com/questions/24830079/firebase-rate-limiting-in-security-rules) could help prevent this
+but is considered out of scope for a frontend specific project.
+
+### Private Data Leakage
 
 The application is unauthenticated, and thus, all data is publicly available.
+
+No private credentials are used by the frontend client, preventing access leakage.
 
 ## Improvements
 
@@ -83,6 +94,8 @@ The list of documents does not perform any pagination or windowing. This will le
 
 This application only exists in a single environment used for development, E2E tests, and production.
 This should be revised to allow isolating data and to further prevent CSRF concerns by restricting request origins.
+
+### Cypress tests run on development builds
 
 ## Libraries
 
@@ -224,9 +237,3 @@ Firebase uses this with appended query strings to poll for upload progress. The 
   "downloadTokens": "122a0738-e71f-46f8-a21c-e3a4553c4f64"
 }
 ```
-
----
-
-## Other notes
-
-// Anything else you want to mention
