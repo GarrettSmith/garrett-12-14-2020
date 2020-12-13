@@ -40,7 +40,8 @@ export const UploadButton: React.FC = () => {
 
   return (
     <>
-      <Snackbar
+      <Snackbar      
+        id="Upload-Error"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={!!errors}
         message={errors?.reduce((msg, e) => `${msg}\n${e.message}`, "")}
@@ -49,6 +50,7 @@ export const UploadButton: React.FC = () => {
         onClose={clearErrors}
       />
       <Snackbar
+        id="Upload-Success"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={!!lastUploaded}
         message={t("upload success", { filename: lastUploaded })}

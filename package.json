@@ -4,20 +4,29 @@
   "private": true,
   "homepage": "https://GarrettSmith.github.io/garrett-12-14-2020",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
+    "@types/numeral": "^0.0.28",
     "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",    
+    "@types/react-dom": "^16.9.8",
+    "cypress": "^6.1.0",
+    "cypress-file-upload": "^4.1.1",
+    "firebase": "^8.2.0",
     "gh-pages": "^3.1.0",
     "husky": "^4.3.5",
+    "i18next": "^19.8.4",
     "lint-staged": "^10.5.3",
+    "numeral": "^2.0.6",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-i18next": "^11.8.3",
     "react-scripts": "4.0.1",
+    "start-server-and-test": "^1.11.6",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
   },
@@ -27,12 +36,16 @@
     ]
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "start": "react-scripts start",
+    "test:e2e:ci": "start-server-and-test start http-get://localhost:3000/garrett-12-14-2020 cypress:run",
+    "test:e2e": "start-server-and-test start http-get://localhost:3000/garrett-12-14-2020 cypress:open",
+    "test": "yarn run test:e2e:ci"
   },
   "eslintConfig": {
     "extends": [
@@ -54,7 +67,7 @@
   },
   "husky": {
     "hooks": {
-    "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged"
     }
   }
 }

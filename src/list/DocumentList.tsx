@@ -6,7 +6,7 @@ import { useDocuments, Document } from "../common/documents";
 import { DocumentTile } from "./DocumentTile";
 
 const Error: React.FC<{ error: Error }> = ({ error }) => {
-  return <Typography className="Document-List-Error" variant="h2">{error.message}</Typography>;
+  return <Typography id="Document-List-Error" variant="h2">{error.message}</Typography>;
 };
 
 const Loading: React.FC = () => {
@@ -33,19 +33,19 @@ const Ready: React.FC<ReadyProps> = ({ documents }) => {
   const totalSize = documents.reduce((size, doc) => size + doc.size, 0);
   return (
     <>
-      <Grid className="Document-List-Header" container justify="space-between" alignContent="flex-end">
+      <Grid id="Document-List-Header" container justify="space-between" alignContent="flex-end">
         <Grid item>
-          <Typography className="Document-List-Header-Count" variant="h2">
+          <Typography id="Document-List-Header-Count" variant="h2">
             {t("document", { count: totalCount })}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography className="Document-List-Header-Size">
+          <Typography id="Document-List-Header-Size">
             {t("total size", { totalSize })}
           </Typography>
         </Grid>
       </Grid>
-      <Grid className="Document-List-Documents" container spacing={2}>
+      <Grid id="Document-List-Documents" container spacing={2}>
         {documents.map((d) => (
           <DocumentTile key={d.name} document={d} />
         ))}
