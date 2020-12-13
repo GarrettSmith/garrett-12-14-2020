@@ -14,7 +14,7 @@ const resources: Resource = {
       "upload error": "Failed to upload file!",
       "upload success": "Successfully uploaded '{{ filename }}'!",
       delete: "Delete",
-      "search placeholder": "Search documents..."
+      "search placeholder": "Search documents...",
     },
   },
 };

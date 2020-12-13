@@ -20,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-end",
   },
   header: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
 }));
 

@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     height: "100vh",
   },
+  actions: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 function App() {
@@ -25,10 +28,10 @@ function App() {
         justify="space-between"
         alignItems="center"
       >
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} md={2} className={classes.actions}>
           <UploadButton />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={classes.actions}>
           <SearchInput value={search} onChange={setSearch} />
         </Grid>
       </Grid>
