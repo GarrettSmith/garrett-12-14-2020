@@ -39,7 +39,31 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 // - that have *not* been addressed
 
 ## Improvements
-// What could be added to the app / API?
+
+### i18n improvements
+
+- detect browser language
+- provide other locales
+- load translations dynamically
+- translate error messages
+
+### Move Firebase configuration to a configuration file
+
+### Error handling
+
+- Currently, error messages are presented directly to end-users. This should follow a more user-friendly format and provide them a method to correct the issue if possible.
+- Error boundaries should be added to limit the potential scope and uncaught error could cause issues in.
+- An error logging tool, E.G. Sentry, should be added to further track runtime errors.
+
+### Improve Firebase security configuration
+
+### Reduce requests for document information
+
+To get the size of a document, we are required to make a separate request to Firebase. This means that to get the total file size, we need to make a request per document.
+
+### Test browser support
+
+Currently, the application has only been tested with Google Chrome 87.0.4280.88 Further browsers should be tested and support added if required.
 
 ## Libraries
 
