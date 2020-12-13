@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { storage } from "./firebase";
+import { documentsRef, searchDocuments } from "./firebase";
 import firebase from "firebase/app";
 import { filesizeFormat, validFileTypes, maxFileSize } from "./constants";
 import numeral from "numeral";
@@ -9,18 +9,8 @@ export interface Document {
   size: number;
 }
 
-async function toDocument(item: firebase.storage.Reference): Promise<Document> {
-  const metadata = await item.getMetadata();
-  return {
-    name: item.name,
-    size: metadata.size,
-  };
-}
-
-const storageRef = storage.ref();
-const documentsRef = storageRef.child("documents");
-
-export const useDocuments = () => {
+// TODO debounce
+export const useDocuments = (search: string) => {
   const [documents, setDocuments] = useState<Array<Document> | undefined>();
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState(true);
@@ -30,8 +20,7 @@ export const useDocuments = () => {
       setLoading(true);
       setError(undefined);
       try {
-        const { items } = await documentsRef.listAll();
-        const documents = await Promise.all(items.map(toDocument));
+        const { data: documents } = await searchDocuments(search);
         setDocuments(documents);
       } catch (error) {
         setError(error);
@@ -40,7 +29,7 @@ export const useDocuments = () => {
       }
     }
     getDocuments();
-  }, []);
+  }, [search]);
 
   return {
     loading,

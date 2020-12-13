@@ -95,8 +95,12 @@ const Ready: React.FC<ReadyProps> = ({ documents }) => {
   );
 };
 
-export const DocumentList: React.FC = () => {
-  const { loading, error, documents } = useDocuments();
+export interface Props {
+  search: string;
+}
+
+export const DocumentList: React.FC<Props> = ({ search }) => {
+  const { loading, error, documents } = useDocuments(search);
 
   if (error) {
     return <Error error={error} />;

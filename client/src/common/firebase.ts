@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/storage";
+import "firebase/functions";
 
 // Set the configuration for your app
 const firebaseConfig = {
@@ -13,4 +14,12 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
-export const storage = app.storage();
+const storage = app.storage();
+
+const storageRef = storage.ref();
+export const documentsRef = storageRef.child("documents");
+
+// Get a reference to the functions service, which is use to call your cloud functions
+const functions = app.functions();
+
+export const searchDocuments = functions.httpsCallable("searchDocuments");
