@@ -4,11 +4,19 @@ describe("Upload document", () => {
     });
 
     it("Displays an upload button", () => {
-        cy.get("#Upload-Button");
+        cy.get("#Upload-Button").should("exist");
     });
 
-    it("Uploads files", () => {
+    it("Uploads jpg files", () => {
         const filePath = "example.jpg";
+        cy.get("#Upload-Input").attachFile(filePath);
+        cy.get("#Upload-Success").contains(filePath).should('exist');
+        // TODO add to DOM
+        // cy.get(".Document-Tile").contains(filePath).should('exist');
+    });
+    
+    it("Uploads png files", () => {
+        const filePath = "test.png";
         cy.get("#Upload-Input").attachFile(filePath);
         cy.get("#Upload-Success").contains(filePath).should('exist');
         // TODO add to DOM

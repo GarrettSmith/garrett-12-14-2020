@@ -4,6 +4,7 @@ import { Container, Grid, makeStyles } from "@material-ui/core";
 
 import { DocumentList } from "./list";
 import { UploadButton } from "./upload";
+import { SearchInput } from "./search";
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -18,12 +19,17 @@ function App() {
 
   return (
     <Container maxWidth="md" className={classes.app}>
-      <Grid container direction="row-reverse" justify="space-between">
+      <Grid
+        container
+        direction="row-reverse"
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item xs={12} md={2}>
           <UploadButton />
         </Grid>
         <Grid item xs={12} md={6}>
-          <input value={search} onChange={e => setSearch(e.target.value)} />
+          <SearchInput value={search} onChange={setSearch} />
         </Grid>
       </Grid>
       <DocumentList search={search} />

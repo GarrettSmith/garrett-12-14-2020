@@ -28,11 +28,12 @@ describe("List documents", () => {
     describe("Error state", () => {
         beforeEach(() => {
             cy.intercept({
-                method: "GET",
-                url: "https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o?prefix=documents%2F&delimiter=%2F"
+                method: "POST",
+                url: "https://us-central1-garrett-12-14-2020.cloudfunctions.net/searchDocuments"
             }, {
                 statusCode: 400,
             });
+            cy.visit("/");
         });
 
         it("Displays the error message", () => {
