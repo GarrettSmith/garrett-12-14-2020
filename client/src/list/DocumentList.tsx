@@ -1,0 +1,114 @@
+import React from "react";
+import {
+  CircularProgress,
+  Grid,
+  makeStyles,
+  Snackbar,
+  Typography,
+} from "@material-ui/core";
+import { useTranslation } from "react-i18next";
+import { useDocuments } from "../common/documents";
+import { Document } from "../common/models";
+import { DocumentTile } from "./DocumentTile";
+
+const useStyles = makeStyles((theme) => ({
+  loading: {
+    flexGrow: 1,
+  },
+  totalSize: {
+    display: "flex",
+    alignItems: "flex-end",
+  },
+  header: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
+
+const Error: React.FC<{ error: Error }> = ({ error }) => {
+  return (
+    <Snackbar
+      id="Document-List-Error"
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      open={true}
+      message={error.message}
+      key="document-list-error"
+    />
+  );
+};
+
+const Loading: React.FC = () => {
+  const classes = useStyles();
+
+  return (
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+      className={classes.loading}
+    >
+      <CircularProgress />
+    </Grid>
+  );
+};
+
+interface ReadyProps {
+  documents: Array<Document>;
+  loading: boolean;
+}
+
+const Ready: React.FC<ReadyProps> = ({ documents, loading }) => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+
+  const totalCount = documents.length;
+  const totalSize = documents.reduce((size, doc) => size + doc.size, 0);
+  return (
+    <>
+      <Grid
+        id="Document-List-Header"
+        className={classes.header}
+        container
+        justify="space-between"
+        alignContent="flex-end"
+      >
+        <Grid item>
+          <Typography
+            id="Document-List-Header-Count"
+            variant="h3"
+            variantMapping={{ h3: "h1" }}
+          >
+            {t("document", { count: totalCount })}
+          </Typography>
+        </Grid>
+        <Grid item>{loading ? <CircularProgress /> : null}</Grid>
+        <Grid item className={classes.totalSize}>
+          <Typography id="Document-List-Header-Size" variant="h5">
+            {t("total size", { totalSize })}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid id="Document-List-Documents" container spacing={2}>
+        {documents.map((d) => (
+          <DocumentTile key={d.name} document={d} />
+        ))}
+      </Grid>
+    </>
+  );
+};
+
+export interface Props {
+  search: string;
+}
+
+export const DocumentList: React.FC<Props> = ({ search }) => {
+  const { loading, error, documents } = useDocuments(search);
+
+  if (error) {
+    return <Error error={error} />;
+  } else if (loading && !documents) { // Initial load
+    return <Loading />;
+  } else {
+    return <Ready documents={documents ?? []} loading={loading} />;
+  }
+};
