@@ -4,5 +4,5 @@
     "runMode": 3,
     "openMode": 1
   },
-  "defaultCommandTimeout": 10000
+  "defaultCommandTimeout": 20000
 }
