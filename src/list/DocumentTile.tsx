@@ -53,7 +53,6 @@ export const DocumentTile: React.FC<Props> = ({ document }) => {
         autoHideDuration={errorDisplayDuration}
         onClose={clearError}
       />
-      ]
       <Grid className="Document-Tile" item xs={12} md={4}>
         <Card className={classes.card} variant="outlined">
           <CardHeader title={document.name} />
