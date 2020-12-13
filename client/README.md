@@ -2,9 +2,9 @@
 
 [Live Site](https://garrettsmith.github.io/garrett-12-14-2020/)
 
-## Installation
+## Commands
 
-In the project directory, you can run:
+In the client project directory, you can run:
 
 ### `yarn`
 
@@ -81,7 +81,7 @@ The list of documents does not perform any pagination or windowing. This will le
 
 ### Single Environment
 
-This application only exists in a single environment used for development, E2E tests, and production. 
+This application only exists in a single environment used for development, E2E tests, and production.
 This should be revised to allow isolating data and to further prevent CSRF concerns by restricting request origins.
 
 ## Libraries
@@ -194,7 +194,6 @@ This endpoint does not respond with body on successful deletions.
 Uploades a new file with the given filename.
 
 This endpoint has been configured to only allow files with the `Content-Type` `image/jpeg` and `image/png` up to a maximum filesize of 10MB.
-
 
 #### Example URL
 
