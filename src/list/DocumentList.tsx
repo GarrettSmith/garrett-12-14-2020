@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-  }
+  },
 }));
 
 const Error: React.FC<{ error: Error }> = ({ error }) => {
@@ -81,10 +81,7 @@ const Ready: React.FC<ReadyProps> = ({ documents }) => {
           </Typography>
         </Grid>
         <Grid item className={classes.totalSize}>
-          <Typography
-            id="Document-List-Header-Size"
-            variant="h5"
-          >
+          <Typography id="Document-List-Header-Size" variant="h5">
             {t("total size", { totalSize })}
           </Typography>
         </Grid>

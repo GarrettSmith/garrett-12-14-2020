@@ -40,7 +40,7 @@ export const UploadButton: React.FC = () => {
 
   return (
     <>
-      <Snackbar      
+      <Snackbar
         id="Upload-Error"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={!!errors}

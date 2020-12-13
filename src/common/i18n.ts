@@ -1,7 +1,7 @@
 import i18n, { Resource } from "i18next";
 import { initReactI18next } from "react-i18next";
 import numeral from "numeral";
-import { filesizeFormat } from './constants';
+import { filesizeFormat } from "./constants";
 
 const resources: Resource = {
   en: {
@@ -10,10 +10,10 @@ const resources: Resource = {
       document_plural: "{{count}} documents",
       filesize: "{{filesize, filesize}}",
       "total size": "Total size: {{totalSize, filesize}}",
-      "upload": "UPLOAD",
+      upload: "UPLOAD",
       "upload error": "Failed to upload file!",
       "upload success": "Successfully uploaded '{{ filename }}'!",
-      "delete": "Delete"
+      delete: "Delete",
     },
   },
 };

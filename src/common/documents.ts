@@ -65,13 +65,13 @@ function validateFile(file: File) {
 }
 
 export const useUploadDocument = () => {
-  const [lastUploaded,  setLastUploaded] = useState<string | undefined>();
+  const [lastUploaded, setLastUploaded] = useState<string | undefined>();
   const [errors, setErrors] = useState<Array<Error> | undefined>();
   const [loading, setLoading] = useState(false);
 
   function uploadDocument(file: File) {
     setLoading(true);
-    setErrors(undefined);    
+    setErrors(undefined);
     setLastUploaded(undefined);
 
     const validationErrors = validateFile(file);
@@ -86,15 +86,15 @@ export const useUploadDocument = () => {
 
     const next = (snapshot: firebase.storage.UploadTaskSnapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        // var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // switch (snapshot.state) {
-        //   case firebase.storage.TaskState.PAUSED: // or 'paused'
-        //     console.log("Upload is paused");
-        //     break;
-        //   case firebase.storage.TaskState.RUNNING: // or 'running'
-        //     console.log("Upload is running");
-        //     break;
-        // }
+      // var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      // switch (snapshot.state) {
+      //   case firebase.storage.TaskState.PAUSED: // or 'paused'
+      //     console.log("Upload is paused");
+      //     break;
+      //   case firebase.storage.TaskState.RUNNING: // or 'running'
+      //     console.log("Upload is running");
+      //     break;
+      // }
     };
     const error = (e: firebase.storage.FirebaseStorageError) => {
       setLoading(false);
@@ -106,13 +106,18 @@ export const useUploadDocument = () => {
       setLastUploaded(file.name);
       setLoading(false);
     };
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, next, error, complete);
+    uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      next,
+      error,
+      complete
+    );
   }
 
   function clearErrors() {
     setErrors(undefined);
   }
-  
+
   function clearLastUploaded() {
     setLastUploaded(undefined);
   }
@@ -154,5 +159,5 @@ export const useDeleteDocument = (name: string) => {
     loading,
     deleteDocument,
     clearError,
-  }
-}
+  };
+};

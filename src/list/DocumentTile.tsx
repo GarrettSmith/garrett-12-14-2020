@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   filesize: {
     alignItems: "flex-end",
-  }
+  },
 }));
 
 export interface Props {
@@ -53,6 +53,7 @@ export const DocumentTile: React.FC<Props> = ({ document }) => {
         autoHideDuration={errorDisplayDuration}
         onClose={clearError}
       />
+      ]
       <Grid className="Document-Tile" item xs={12} md={4}>
         <Card className={classes.card} variant="outlined">
           <CardHeader title={document.name} />
@@ -71,7 +72,7 @@ export const DocumentTile: React.FC<Props> = ({ document }) => {
             >
               {t("delete")}
             </Button>
-      </CardActions>
+          </CardActions>
         </Card>
       </Grid>
     </>
