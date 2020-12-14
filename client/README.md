@@ -124,7 +124,7 @@ An end-to-end testing library.
 
 File upload utility commands for Cypress.
 
-### [`firebase](https://firebase.google.com/)
+### [`firebase`](https://firebase.google.com/)
 
 Client library for Firebase. The backend application service.
 
