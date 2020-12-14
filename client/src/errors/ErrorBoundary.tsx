@@ -14,7 +14,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, 
   }
 
   componentDidCatch(error: any, errorInfo: React.ErrorInfo) {
-    // TODO log the error to a tracking servic
+    // TODO log the error to a tracking service
   }
 
   render() {
