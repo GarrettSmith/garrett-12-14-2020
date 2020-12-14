@@ -3,6 +3,7 @@ import * as service from "./firebase";
 import { searchDebounce } from "./constants";
 import { validateFile } from "./validations";
 import { Document } from "./models";
+import { toAppDocument } from "./format";
 import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
 interface State {
@@ -113,7 +114,7 @@ export const useDocuments = (search: string) => {
     dispatch({ type: "get-start", search });
     try {
       const documents = await service.searchDocuments(search);
-      dispatch({ type: "get-success", documents })
+      dispatch({ type: "get-success", documents: documents.map(toAppDocument) })
     } catch (error) {
       dispatch({ type: "get-error", error })
     }
@@ -125,7 +126,7 @@ export const useDocuments = (search: string) => {
       const validationErrors = validateFile(file);
       if (validationErrors) throw validationErrors;
       const document = await service.uploadDocument(file);
-      dispatch({ type: "upload-success", document })
+      dispatch({ type: "upload-success", document: toAppDocument(document) })
     } catch (e) {
       const errors = Array.isArray(e) ? e : [e];
       dispatch({ type: "upload-error", errors })

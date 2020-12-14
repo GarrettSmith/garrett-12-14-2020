@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     visibility: "hidden",
     width: 0,
     height: 0,
-  }
+  },
 }));
 
 export interface Props {
@@ -65,7 +65,7 @@ export const DocumentTile: React.FC<Props> = ({
   const imageRef = useRef<HTMLImageElement>(null);
 
   const onImageLoad = () => setLoaded(true);
-  
+
   // Use a hidden img element to listen to an image load effect and fade in the media component
   useEffect(() => {
     const ref = imageRef.current;
@@ -75,29 +75,26 @@ export const DocumentTile: React.FC<Props> = ({
     }
   }, [imageRef]);
 
-  // TODO this should be provided by the Firebase API
-  // TODO use an API that can scale down these images
-  const imgUrl =
-    `https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o/documents%2F${document.name}?alt=media`;
-
   const { t } = useTranslation();
   const classes = useStyles();
 
   return (
-    <Grid className="Document-Tile" item xs={12} md={4}>
+    <Grid className="Document-Tile" item xs={12} sm={6} md={4}>
       <Fade in>
-        <Card
-          className={classes.card}
-          variant="outlined"
-        >
+        <Card className={classes.card} variant="outlined">
           <Fade in={loaded}>
             <CardMedia
               className={classes.media}
-              image={imgUrl}
+              image={document.url}
               title={document.name}
             >
-              <img src={imgUrl} className={classes.image} ref={imageRef} alt={document.name} />
-            </CardMedia>  
+              <img
+                src={document.url}
+                className={classes.image}
+                ref={imageRef}
+                alt={document.name}
+              />
+            </CardMedia>
           </Fade>
           <CardContent>
             <Typography

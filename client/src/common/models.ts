@@ -9,4 +9,5 @@ export interface FunctionDocument {
 export interface Document {
   name: string;
   size: number;
+  url: string;
 }
