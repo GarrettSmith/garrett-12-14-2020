@@ -7,9 +7,9 @@ describe("Search documents", () => {
 
     cy.visit("/");
     cy.get("#Upload-Input").attachFile(filePath1);
-    cy.get(".Document-Tile").contains(filePath1)
+    cy.get(".Document-Tile").contains(filePath1);
     cy.get("#Upload-Input").attachFile(filePath2);
-    cy.get(".Document-Tile").contains(filePath2)
+    cy.get(".Document-Tile").contains(filePath2);
   });
 
   beforeEach(() => {

@@ -42,12 +42,13 @@ export const DocumentList: React.FC<Props> = ({
         container
         justify="space-between"
         alignContent="flex-end"
+        spacing={2}
       >
         <Grid item>
           <Typography
             id="Document-List-Header-Count"
             variant="h3"
-            variantMapping={{ h3: "h1" }}
+            component="h1"
           >
             {t("document", { count: totalCount })}
           </Typography>

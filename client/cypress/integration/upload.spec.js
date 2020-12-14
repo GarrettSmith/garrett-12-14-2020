@@ -1,3 +1,4 @@
+// TODO test file size limit
 describe("Upload document", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -10,13 +11,13 @@ describe("Upload document", () => {
   it("Uploads jpg files", () => {
     const filePath = "example.jpg";
     cy.get("#Upload-Input").attachFile(filePath);
-    cy.get(".Document-Tile").contains(filePath).should('exist');
+    cy.get(".Document-Tile").contains(filePath).should("exist");
   });
 
   it("Uploads png files", () => {
     const filePath = "test.png";
     cy.get("#Upload-Input").attachFile(filePath);
-    cy.get(".Document-Tile").contains(filePath).should('exist');
+    cy.get(".Document-Tile").contains(filePath).should("exist");
   });
 
   it("Fails to upload non-image files", () => {

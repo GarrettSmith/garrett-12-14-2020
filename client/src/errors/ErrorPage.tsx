@@ -22,7 +22,7 @@ export const ErrorPage: React.FC = () => {
       direction="column"
     >
       <Grid item>
-        <Typography variant="h3" variantMapping={{ h3: "h1" }}>
+        <Typography variant="h3" component="h1">
           {t("error title")}
         </Typography>
       </Grid>

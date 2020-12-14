@@ -23,9 +23,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    padding: theme.spacing(2),
   },
   filesize: {
     alignItems: "flex-end",
+  },
+  name: {
+    textOverflow: "ellipsis",
   },
 }));
 
@@ -46,7 +50,7 @@ export const DocumentTile: React.FC<Props> = ({
   return (
     <Grid className="Document-Tile" item xs={12} md={4}>
       <Card className={classes.card} variant="outlined">
-        <CardHeader title={document.name} />
+        <CardHeader className={classes.name} title={document.name} />
         <CardActions className={classes.actions}>
           <Typography className={classes.filesize}>
             {t("filesize", { filesize: document.size })}
