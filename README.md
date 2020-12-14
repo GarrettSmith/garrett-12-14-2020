@@ -27,16 +27,15 @@ Enables the frontend client's search functionality.
 
 ### XSS
 
-React is highly resistant to XSS and escapes strings by default. [Reference](https://dev.to/spukas/preventing-xss-in-react-applications-5f5j)
+React is highly resistant to XSS and escapes strings by default. [Reference](https://dev.to/spukas/preventing-xss-in-react-applications-5f5j). 
+
+No unescaped content is rendered within the client application.
 
 ### CSRF
 
-No endpoints used by the project support the `GET` method. This is not sufficient to fully prevent CSRF but does reduce possible attack vetors.
+No session cookies are used and no endpoints used by the project and mutate state support the `GET` method.
 
-Further enhancements to limit the request origin would further limit this, but are also not sufficient to fully prevent it.
-Adding proper session handling or synchronized tokens would be the ideal solution to prevent this attack.
-
-### DOS
+### DDoS
 
 [Firebase has rate limits for cloud functions](https://firebase.google.com/docs/functions/quotas). Once these are reached, an attacker could
 prevent the availability of the server to users.
@@ -49,6 +48,22 @@ but is considered out of scope for a frontend specific project.
 The application is unauthenticated, and thus, all data is publicly available.
 
 No private credentials are used by the frontend client, preventing access leakage.
+
+### Insecure dependencies
+
+[`yarn audit`](https://classic.yarnpkg.com/en/docs/cli/audit/) has been run against the project with no known vulnerabilities found.
+
+```
+$ yarn audit
+yarn audit v1.12.1
+info No lockfile found.
+0 vulnerabilities found - Packages audited: 0
+Done in 0.70s.
+```
+
+### Application monitoring
+
+While not strictly a security concern, the client application has no form of automatic monitoring, beyond that performed on the whol of the System by GitHub and Firebase. Any issue that does occur, and is not monitored automatically, is unknown without manual verification. This could be mitigated with automated health checks, such as pinging the server or running periodic E2E tests.
 
 ## Improvements
 
@@ -94,7 +109,7 @@ Firebase provides the progress as documents are uploaded. This could be displaye
 
 ### Rate limit users
 
-There is currently no user-specific rate limiting. This makes the application server vulnerable to DOS attacks.
+There is currently no user-specific rate limiting. This makes the application server vulnerable to DDoS attacks.
 
 ### Share typings between client and server
 
