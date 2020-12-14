@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, CircularProgress, makeStyles } from "@material-ui/core";
+import { Button, CircularProgress, Grow, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { validFileTypes } from "../common/constants";
 
@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     display: "flex",
     textAlign: "center",
+    paddingRight: theme.spacing(4),
   },
   input: {
     display: "none",
@@ -27,20 +28,14 @@ export const UploadButton: React.FC<Props> = ({
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
+    // Reset the input
+    event.target.value = "";
+
     if (file) {
       uploadDocument(file);
     }
   };
-
-    /* <Snackbar
-        id="Upload-Success"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        open={!!lastUploaded}
-        message={t("upload success", { filename: lastUploaded })}
-        key="upload-success"
-        autoHideDuration={errorDisplayDuration}
-        onClose={clearLastUploaded}
-      /> */
 
   return (
     <>
@@ -59,7 +54,11 @@ export const UploadButton: React.FC<Props> = ({
           className={classes.button}
           component="div"
           disabled={uploading}
-          startIcon={uploading ? <CircularProgress size={14} /> : null}
+          startIcon={
+            <Grow in={uploading}>
+              <CircularProgress size={14} />
+            </Grow>
+          }
           color="primary"
         >
           {t("Upload")}

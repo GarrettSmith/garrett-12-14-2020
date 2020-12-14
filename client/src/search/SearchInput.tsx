@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress, InputBase, makeStyles } from "@material-ui/core";
+import { CircularProgress, Fade, InputBase, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     borderStyle: "solid",
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
     paddingRight: theme.spacing(1),
   },
   inputRoot: {
@@ -45,7 +46,9 @@ export const SearchInput: React.FC<Props> = ({ value, onChange, getting }) => {
         onChange={(e) => onChange(e.target.value)}
         value={value}
       />
-      {getting ? <CircularProgress size={24} /> : null}
+      <Fade in={getting}>
+        <CircularProgress size={24} />
+      </Fade>
     </div>
   );
 };

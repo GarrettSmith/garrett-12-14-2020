@@ -3,9 +3,11 @@ import {
   Button,
   Card,
   CardActions,
-  CardHeader,
+  CardContent,
   CircularProgress,
+  Fade,
   Grid,
+  Grow,
   makeStyles,
   Typography,
 } from "@material-ui/core";
@@ -31,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   name: {
     textOverflow: "ellipsis",
   },
+  button: {
+    paddingRight: theme.spacing(4),
+  }
 }));
 
 export interface Props {
@@ -49,25 +54,41 @@ export const DocumentTile: React.FC<Props> = ({
 
   return (
     <Grid className="Document-Tile" item xs={12} md={4}>
-      <Card className={classes.card} variant="outlined">
-        <CardHeader className={classes.name} title={document.name} />
-        <CardActions className={classes.actions}>
-          <Typography className={classes.filesize}>
-            {t("filesize", { filesize: document.size })}
-          </Typography>
-          <Button
-            className="Delete-Button"
-            size="small"
-            color="primary"
-            startIcon={deleting ? <CircularProgress size={14} /> : null}
-            disabled={deleting}
-            onClick={() => deleteDocument(document.name)}
-            variant="contained"
-          >
-            {t("delete")}
-          </Button>
-        </CardActions>
-      </Card>
+      <Fade in>
+        <Card className={classes.card} variant="outlined">
+          <CardContent>
+            <Typography
+              className={classes.name}
+              noWrap
+              gutterBottom
+              variant="h5"
+              component="h2"
+            >
+              {document.name}
+            </Typography>
+          </CardContent>
+          <CardActions className={classes.actions}>
+            <Typography className={classes.filesize}>
+              {t("filesize", { filesize: document.size })}
+            </Typography>
+            <Button
+              className={`Delete-Button ${classes.button}`}
+              size="small"
+              color="primary"
+              startIcon={
+                <Grow in={deleting}>
+                  <CircularProgress size={14} />
+                </Grow>
+              }
+              disabled={deleting}
+              onClick={() => deleteDocument(document.name)}
+              variant="contained"
+            >
+              {t("delete")}
+            </Button>
+          </CardActions>
+        </Card>
+      </Fade>
     </Grid>
   );
 };

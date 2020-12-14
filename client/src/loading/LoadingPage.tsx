@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress, Grid, makeStyles } from "@material-ui/core";
+import { CircularProgress, Grid, Grow, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -17,7 +17,9 @@ export const LoadingPage: React.FC = () => {
       alignItems="center"
       className={classes.loading}
     >
-      <CircularProgress />
+      <Grow in>        
+        <CircularProgress />
+      </Grow>
     </Grid>
   );
 };

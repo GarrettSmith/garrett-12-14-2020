@@ -68,7 +68,11 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         uploading: false,
-        documents: [...(state.documents ?? []), action.document],
+        documents: [
+          ...(state.documents || []),
+          // Don't add duplicated documents
+          ...(state.documents?.find(x => x.name === action.document.name) ? [] : [action.document])
+        ],
       };
 
     case "delete-start":
@@ -94,7 +98,7 @@ const reducer = (state: State, action: Action): State => {
     case "clear-error":
       return {
         ...state,
-        errors: state.errors.filter((x) => x === action.error),
+        errors: state.errors.filter((x) => x !== action.error),
       };
 
     default:
