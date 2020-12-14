@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   CircularProgress,
   Fade,
   Grid,
@@ -20,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "column",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
   },
   actions: {
     display: "flex",
@@ -35,6 +38,15 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     paddingRight: theme.spacing(4),
+  },
+  media: {
+    paddingTop: "60%",
+  },
+  image: {
+    display: "none",
+    visibility: "hidden",
+    width: 0,
+    height: 0,
   }
 }));
 
@@ -49,13 +61,44 @@ export const DocumentTile: React.FC<Props> = ({
   deleting,
   deleteDocument,
 }) => {
+  const [loaded, setLoaded] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  const onImageLoad = () => setLoaded(true);
+  
+  // Use a hidden img element to listen to an image load effect and fade in the media component
+  useEffect(() => {
+    const ref = imageRef.current;
+    if (ref) {
+      ref.addEventListener("load", onImageLoad);
+      return () => ref.removeEventListener("load", onImageLoad);
+    }
+  }, [imageRef]);
+
+  // TODO this should be provided by the Firebase API
+  // TODO use an API that can scale down these images
+  const imgUrl =
+    `https://firebasestorage.googleapis.com/v0/b/garrett-12-14-2020.appspot.com/o/documents%2F${document.name}?alt=media`;
+
   const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <Grid className="Document-Tile" item xs={12} md={4}>
       <Fade in>
-        <Card className={classes.card} variant="outlined">
+        <Card
+          className={classes.card}
+          variant="outlined"
+        >
+          <Fade in={loaded}>
+            <CardMedia
+              className={classes.media}
+              image={imgUrl}
+              title={document.name}
+            >
+              <img src={imgUrl} className={classes.image} ref={imageRef} alt={document.name} />
+            </CardMedia>  
+          </Fade>
           <CardContent>
             <Typography
               className={classes.name}
