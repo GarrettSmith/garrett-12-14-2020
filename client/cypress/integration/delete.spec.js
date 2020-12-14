@@ -8,10 +8,8 @@ describe("Delete document", () => {
   });
 
   it("Deletes the document", () => {
-    //  Upload example.jpg fixture
     const filePath = "example.jpg";
     cy.get("#Upload-Input").attachFile(filePath);
-    cy.get("#Upload-Success").contains(filePath);
 
     cy.get(".Document-Tile")
       .contains(filePath)
@@ -20,8 +18,7 @@ describe("Delete document", () => {
         cy.get(".Delete-Button").click();
       });
 
-    // TODO Remove from DOM
-    //cy.get(".Document-Tile").contains(filePath).should("not.exist");
+    cy.get(".Document-Tile").contains(filePath).should("not.exist");
   });
 
   it("Shows a message on errors", () => {
@@ -36,6 +33,6 @@ describe("Delete document", () => {
       }
     );
     cy.get(".Delete-Button").first().click();
-    cy.get(".Document-Delete-Error").should("exist");
+    cy.get(".Document-Error").should("exist");
   });
 });

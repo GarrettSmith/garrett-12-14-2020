@@ -17,7 +17,7 @@ describe("List documents", () => {
 
   it("Displays the total size of documents", () => {
     cy.get("#Document-List-Documents")
-      .contains(/^\d+(\.\d)?[KM]B$/)
+      .contains(/^\d+(\.\d)?[kgm]?b$/)
       .should("exist");
   });
 
@@ -30,7 +30,7 @@ describe("List documents", () => {
 
     it("Displays the filesize of the document", () => {
       cy.get(".Document-Tile")
-        .contains(/^\d+(\.\d)?[KM]B$/)
+        .contains(/^\d+(\.\d)?[gkm]?b$/)
         .should("exist");
     });
   });
@@ -51,7 +51,7 @@ describe("List documents", () => {
     });
 
     it("Displays the error message", () => {
-      cy.get("#Document-List-Error").should("exist");
+      cy.get("#Error-Page").should("exist");
     });
   });
 });

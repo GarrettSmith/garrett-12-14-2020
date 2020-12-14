@@ -7,9 +7,9 @@ describe("Search documents", () => {
 
     cy.visit("/");
     cy.get("#Upload-Input").attachFile(filePath1);
-    cy.get("#Upload-Success", { timeout });
+    cy.get(".Document-Tile").contains(filePath1)
     cy.get("#Upload-Input").attachFile(filePath2);
-    cy.get("#Upload-Success", { timeout });
+    cy.get(".Document-Tile").contains(filePath2)
   });
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe("Search documents", () => {
     cy.get(".Document-Tile").contains(filePath2).should("not.exist");
   });
 
-  it("Filters documents", () => {
+  it("Unfilters documents", () => {
     cy.get("#Document-Search").type("example");
     cy.wait("@searchDocuments");
 

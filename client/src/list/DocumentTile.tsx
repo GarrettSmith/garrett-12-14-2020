@@ -7,13 +7,10 @@ import {
   CircularProgress,
   Grid,
   makeStyles,
-  Snackbar,
   Typography,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { useDeleteDocument } from "../common/documents";
 import { Document } from "../common/models";
-import { errorDisplayDuration } from "../common/constants";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -34,47 +31,39 @@ const useStyles = makeStyles((theme) => ({
 
 export interface Props {
   document: Document;
+  deleting: boolean;
+  deleteDocument: (documentName: string) => void;
 }
 
-export const DocumentTile: React.FC<Props> = ({ document }) => {
+export const DocumentTile: React.FC<Props> = ({
+  document,
+  deleting,
+  deleteDocument,
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { loading, error, deleteDocument, clearError } = useDeleteDocument(
-    document.name
-  );
 
   return (
-    <>
-      <Snackbar
-        className="Document-Delete-Error"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        open={!!error}
-        message={error?.message}
-        key={`delete-error-${document.name}`}
-        autoHideDuration={errorDisplayDuration}
-        onClose={clearError}
-      />
-      <Grid className="Document-Tile" item xs={12} md={4}>
-        <Card className={classes.card} variant="outlined">
-          <CardHeader title={document.name} />
-          <CardActions className={classes.actions}>
-            <Typography className={classes.filesize}>
-              {t("filesize", { filesize: document.size })}
-            </Typography>
-            <Button
-              className="Delete-Button"
-              size="small"
-              color="primary"
-              startIcon={loading ? <CircularProgress size={14} /> : null}
-              disabled={loading}
-              onClick={deleteDocument}
-              variant="contained"
-            >
-              {t("delete")}
-            </Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    </>
+    <Grid className="Document-Tile" item xs={12} md={4}>
+      <Card className={classes.card} variant="outlined">
+        <CardHeader title={document.name} />
+        <CardActions className={classes.actions}>
+          <Typography className={classes.filesize}>
+            {t("filesize", { filesize: document.size })}
+          </Typography>
+          <Button
+            className="Delete-Button"
+            size="small"
+            color="primary"
+            startIcon={deleting ? <CircularProgress size={14} /> : null}
+            disabled={deleting}
+            onClick={() => deleteDocument(document.name)}
+            variant="contained"
+          >
+            {t("delete")}
+          </Button>
+        </CardActions>
+      </Card>
+    </Grid>
   );
 };

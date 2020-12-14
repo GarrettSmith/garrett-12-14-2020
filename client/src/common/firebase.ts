@@ -37,10 +37,10 @@ export const deleteDocument = (name: string) =>
   documentsRef.child(name).delete() as Promise<void>;
 
 export const uploadDocument = (file: File) =>
-  new Promise<void>((resolve, reject) => {
+  new Promise<FunctionDocument>((resolve, reject) => {
     const uploadTask = documentsRef.child(file.name).put(file);
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
       error: reject,
-      complete: resolve,
+      complete: () => resolve({ name: file.name, size: file.size }),
     });
   });

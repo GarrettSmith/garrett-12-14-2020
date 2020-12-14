@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  CircularProgress,
-  Grid,
-  makeStyles,
-  Snackbar,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { useDocuments } from "../common/documents";
 import { Document } from "../common/models";
 import { DocumentTile } from "./DocumentTile";
 
 const useStyles = makeStyles((theme) => ({
-  loading: {
-    flexGrow: 1,
-  },
   totalSize: {
     display: "flex",
     alignItems: "flex-end",
@@ -25,44 +15,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Error: React.FC<{ error: Error }> = ({ error }) => {
-  return (
-    <Snackbar
-      id="Document-List-Error"
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      open={true}
-      message={error.message}
-      key="document-list-error"
-    />
-  );
-};
-
-const Loading: React.FC = () => {
-  const classes = useStyles();
-
-  return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className={classes.loading}
-    >
-      <CircularProgress />
-    </Grid>
-  );
-};
-
-interface ReadyProps {
+export interface Props {
   documents: Array<Document>;
-  loading: boolean;
+  deleting: Array<string>;
+  deleteDocument: (documentName: string) => void;
 }
 
-const Ready: React.FC<ReadyProps> = ({ documents, loading }) => {
+export const DocumentList: React.FC<Props> = ({
+  documents,
+  deleting,
+  deleteDocument,
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   const totalCount = documents.length;
   const totalSize = documents.reduce((size, doc) => size + doc.size, 0);
+  const sortedDocuments = documents.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
   return (
     <>
       <Grid
@@ -81,7 +52,6 @@ const Ready: React.FC<ReadyProps> = ({ documents, loading }) => {
             {t("document", { count: totalCount })}
           </Typography>
         </Grid>
-        <Grid item>{loading ? <CircularProgress /> : null}</Grid>
         <Grid item className={classes.totalSize}>
           <Typography id="Document-List-Header-Size" variant="h5">
             {t("total size", { totalSize })}
@@ -89,26 +59,15 @@ const Ready: React.FC<ReadyProps> = ({ documents, loading }) => {
         </Grid>
       </Grid>
       <Grid id="Document-List-Documents" container spacing={2}>
-        {documents.map((d) => (
-          <DocumentTile key={d.name} document={d} />
+        {sortedDocuments.map((d) => (
+          <DocumentTile
+            key={d.name}
+            document={d}
+            deleting={deleting.includes(d.name)}
+            deleteDocument={deleteDocument}
+          />
         ))}
       </Grid>
     </>
   );
-};
-
-export interface Props {
-  search: string;
-}
-
-export const DocumentList: React.FC<Props> = ({ search }) => {
-  const { loading, error, documents } = useDocuments(search);
-
-  if (error) {
-    return <Error error={error} />;
-  } else if (loading && !documents) { // Initial load
-    return <Loading />;
-  } else {
-    return <Ready documents={documents ?? []} loading={loading} />;
-  }
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { InputBase, makeStyles } from "@material-ui/core";
+import { CircularProgress, InputBase, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
@@ -8,9 +8,13 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.grey[400],
     borderWidth: 1,
     borderStyle: "solid",
+    display: "flex",
+    flexDirection: "row",
+    paddingRight: theme.spacing(1),
   },
   inputRoot: {
     display: "flex",
+    flexGrow: 1,
   },
   inputInput: {
     padding: theme.spacing(1),
@@ -21,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   value: string;
   onChange: (search: string) => void;
+  getting: boolean;
 }
 
-export const SearchInput: React.FC<Props> = ({ value, onChange }) => {
+export const SearchInput: React.FC<Props> = ({ value, onChange, getting }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -40,6 +45,7 @@ export const SearchInput: React.FC<Props> = ({ value, onChange }) => {
         onChange={(e) => onChange(e.target.value)}
         value={value}
       />
+      {getting ? <CircularProgress size={24} /> : null}
     </div>
   );
 };

@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Button,
-  CircularProgress,
-  makeStyles,
-  Snackbar,
-} from "@material-ui/core";
-import { useUploadDocument } from "../common/documents";
+import { Button, CircularProgress, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { errorDisplayDuration, validFileTypes } from "../common/constants";
+import { validFileTypes } from "../common/constants";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -19,15 +13,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const UploadButton: React.FC = () => {
-  const {
-    loading,
-    errors,
-    uploadDocument,
-    clearErrors,
-    lastUploaded,
-    clearLastUploaded,
-  } = useUploadDocument();
+export interface Props {
+  uploadDocument: (file: File) => void;
+  uploading: boolean;
+}
+
+export const UploadButton: React.FC<Props> = ({
+  uploading,
+  uploadDocument,
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -38,18 +32,7 @@ export const UploadButton: React.FC = () => {
     }
   };
 
-  return (
-    <>
-      <Snackbar
-        id="Upload-Error"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        open={!!errors}
-        message={errors?.reduce((msg, e) => `${msg}\n${e.message}`, "")}
-        key="upload-error"
-        autoHideDuration={errorDisplayDuration}
-        onClose={clearErrors}
-      />
-      <Snackbar
+    /* <Snackbar
         id="Upload-Success"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={!!lastUploaded}
@@ -57,7 +40,10 @@ export const UploadButton: React.FC = () => {
         key="upload-success"
         autoHideDuration={errorDisplayDuration}
         onClose={clearLastUploaded}
-      />
+      /> */
+
+  return (
+    <>
       <input
         id="Upload-Input"
         className={classes.input}
@@ -72,8 +58,8 @@ export const UploadButton: React.FC = () => {
           variant="contained"
           className={classes.button}
           component="div"
-          disabled={loading}
-          startIcon={loading ? <CircularProgress size={14} /> : null}
+          disabled={uploading}
+          startIcon={uploading ? <CircularProgress size={14} /> : null}
           color="primary"
         >
           {t("Upload")}
