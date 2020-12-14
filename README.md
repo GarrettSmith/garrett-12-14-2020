@@ -128,7 +128,7 @@ Images are currently loaded at full resolution. Production apps should take meas
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### [@material-ui/core](https://material-ui.com/)
+### [`@material-ui/core`](https://material-ui.com/)
 
 A React implementation of Google's Material Design.
 
