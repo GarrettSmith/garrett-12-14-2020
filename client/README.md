@@ -253,4 +253,4 @@ Firebase uses this with appended query strings to poll for upload progress. The 
 
 ### GitHub issues
 
-[GitHub issues](https://github.com/GarrettSmith/garrett-12-14-2020/issues) were used to organize requirements and assumption. Please refer to them for more information on the planning process.
+[GitHub issues](https://github.com/GarrettSmith/garrett-12-14-2020/issues?q=is%3Aissue) were used to organize requirements and assumption. Please refer to them for more information on the planning process.
