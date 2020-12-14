@@ -1,5 +1,7 @@
 # Garrett - 12/14/2020
 
+[Live Site](https://garrettsmith.github.io/garrett-12-14-2020/)
+
 A React based single page application and API which allows users to upload and manage files.
 
 ## [Frontend client](./client)
